@@ -11,7 +11,7 @@ This is a base image. Add nginx confs, certs and any other configuration to your
 
 FROM stcox/nginx-cache-purge-http2 # base image
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf           /etc/nginx/nginx.conf
 COPY default.conf         /etc/nginx/conf.d/default.conf
 COPY ssl.conf             /etc/nginx/global/ssl.conf
 COPY cache.conf           /etc/nginx/global/cache.conf

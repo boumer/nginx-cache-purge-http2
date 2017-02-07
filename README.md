@@ -11,18 +11,18 @@ This is a base image. Add nginx confs, certs and any other configuration to your
 
 FROM stcox/nginx-cache-purge-http2 # base image
 
-COPY default.conf /etc/nginx/conf.d/default.conf
-COPY ssl.conf /etc/nginx/global/ssl.conf
-COPY cache.conf /etc/nginx/global/cache.conf
-COPY locations.conf /etc/nginx/global/locations.conf
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY proxy.conf /etc/nginx/global/proxy.conf
+COPY default.conf         /etc/nginx/conf.d/default.conf
+COPY ssl.conf             /etc/nginx/global/ssl.conf
+COPY cache.conf           /etc/nginx/global/cache.conf
+COPY proxy.conf           /etc/nginx/global/proxy.conf
+COPY locations.conf       /etc/nginx/global/locations.conf
 COPY docker-entrypoint.sh /entrypoint.sh
 
 #ssl
 COPY example.com.crt /etc/nginx/ssl/example.com.crt
-COPY example.com.us.key /etc/nginx/ssl/example.com.key
-COPY dhparam.pem /etc/nginx/ssl/dhparam.pem
+COPY example.com.key /etc/nginx/ssl/example.com.key
+COPY dhparam.pem     /etc/nginx/ssl/dhparam.pem
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]

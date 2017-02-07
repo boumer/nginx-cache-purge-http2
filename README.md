@@ -6,7 +6,7 @@ Based on [Ehekatl's docker-nginx-http2](https://github.com/Ehekatl/docker-nginx-
 
 This is a base image. Add nginx confs, certs and any other configuration to your top image, like so:
 
-'''
+```
 # Dockerfile
 
 FROM stcox/nginx-cache-purge-http2
@@ -26,4 +26,4 @@ COPY dhparam.pem /etc/nginx/ssl/dhparam.pem
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
-'''
+```

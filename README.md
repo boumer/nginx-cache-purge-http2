@@ -15,7 +15,7 @@ Use this image as a Dockerfile base (i.e.,```FROM stcox/nginx-cache-purge-http2`
 
 ---
 
-Bake your Nginx configuration files and SSL certificates directly into your image statically, with COPY, or use ```docker-entrypoint.sh``` sed/awk commands to configure Nginx dynamically on container startup.
+Bake your Nginx configuration files and SSL certificates directly into your image statically, with COPY, or use sed/awk commands within ```docker-entrypoint.sh``` to configure Nginx dynamically on container startup.
 
 **Dockerfile Example:**
 ```

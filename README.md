@@ -36,38 +36,37 @@ upstream php {
 }
 
 server {
-  
-  listen  80 default_server;
-  server_name  example.com *.example.com;
-  server_name_in_redirect off;
+    listen  80 default_server;
+    server_name  example.com *.example.com;
+    server_name_in_redirect off;
 
-  access_log   /var/log/nginx/example.com.80.access.log;
-  error_log    /var/log/nginx/example.com.80.error.log;
+    access_log   /var/log/nginx/example.com.80.access.log;
+    error_log    /var/log/nginx/example.com.80.error.log;
 
-  root /var/www/html;
-  client_max_body_size 128m;
-  index index.php;
+    root /var/www/html;
+    client_max_body_size 128m;
+    index index.php;
 
-  include /etc/nginx/global/cache.conf;
-  include /etc/nginx/global/locations.conf;
+    include /etc/nginx/global/cache.conf;
+    include /etc/nginx/global/locations.conf;
 }
 
 server {
   
-  listen 443 http2 default_server;
-  server_name example.com *.example.com;
-  server_name_in_redirect off;
+    listen 443 http2 default_server;
+    server_name example.com *.example.com;
+    server_name_in_redirect off;
 
-  access_log   /var/log/nginx/example.com.443.access.log;
-  error_log    /var/log/nginx/example.com.443.error.log;
+    access_log   /var/log/nginx/example.com.443.access.log;
+    error_log    /var/log/nginx/example.com.443.error.log;
 
-  root /var/www/html;
-  client_max_body_size 128m;
-  index index.php;
+    root /var/www/html;
+    client_max_body_size 128m;
+    index index.php;
 
-  include /etc/nginx/global/ssl.conf;
-  include /etc/nginx/global/cache.conf;
-  include /etc/nginx/global/locations.conf;
+    include /etc/nginx/global/ssl.conf;
+    include /etc/nginx/global/cache.conf;
+    include /etc/nginx/global/locations.conf;
 }
   ```
 

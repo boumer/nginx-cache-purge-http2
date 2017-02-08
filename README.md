@@ -20,10 +20,54 @@ Bake Nginx configuration files and SSL certificates directly into your image, st
 **Enable Cache Purging:**
 
 1. Configure a working cache (FastCGI, proxy, SCGI, or uWSGI).
-  e.g. - FastCGI
-  '''
-  
-  '''
+  - e.g. - FastCGI
+  - '''
+    # wordpress multisite
+
+fastcgi_cache_path /var/run/nginx-cache levels=1:2 keys_zone=WORDPRESS:100m inactive=60m;
+fastcgi_cache_key "$scheme$request_method$http_host$request_uri";
+fastcgi_cache_use_stale error timeout invalid_header http_500;
+fastcgi_ignore_headers Cache-Control Expires Set-Cookie;
+
+add_header X-Cache $upstream_cache_status;
+
+upstream php {
+	server wordpress:9000;
+}
+
+server {
+  listen  80 default_server;
+  server_name  example.com *.example.com;
+  server_name_in_redirect off;
+
+	access_log   /var/log/nginx/sp80.access.log;
+	error_log    /var/log/nginx/sp80.error.log;
+
+	root /var/www/html;
+  client_max_body_size 128m;
+	index index.php;
+
+  include /etc/nginx/global/cache.conf;
+  include /etc/nginx/global/locations.conf;
+}
+
+server {
+	listen 443 http2 default_server;
+	server_name example.com *.example.com;
+	server_name_in_redirect off;
+
+	access_log   /var/log/nginx/sp443.access.log;
+	error_log    /var/log/nginx/sp443.error.log;
+
+	root /var/www/html;
+  client_max_body_size 128m;
+	index index.php;
+
+  include /etc/nginx/global/ssl.conf;
+  include /etc/nginx/global/cache.conf;
+  include /etc/nginx/global/locations.conf;
+}
+    '''
 
 2. Specify a \***\_cache_purge** directive. 
 

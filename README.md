@@ -127,7 +127,7 @@ location ~ \.php$ {
     fastcgi_cache_valid  60m;
 }
 
-**location ~ /purge(/.*) {**
+location ~ /purge(/.*) {
     fastcgi_cache_purge WORDPRESS "$scheme$request_method$host$1";
 }
 

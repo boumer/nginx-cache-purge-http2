@@ -94,11 +94,9 @@ server {
 2. Specify a \***\_cache_purge** directive.
   - e.g. - WordPress Multisite FastCGI Cache Purge ```/etc/nginx/global/server.conf```
   ```
-######################
-#############
 ###################################
-
-
+## CACHE EXCEPTIONS      ##########
+###################################
 
 set $skip_cache 0;
 
@@ -120,9 +118,17 @@ if ($http_cookie ~* "comment_author|wordpress_[a-f0-9]+|wp-postpass|wordpress_no
     set $skip_cache 1;
 }
 
+###################################
+## WORDPRESS LOCATIONS ############
+###################################
+
 location / {
     try_files $uri $uri/ /index.php?$args;
 }
+
+###################################
+## FASTCGI PASS LOCATION   ########
+###################################
 
 location ~ \.php$ {
     try_files $uri =404; 

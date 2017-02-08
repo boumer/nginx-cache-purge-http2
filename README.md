@@ -12,29 +12,34 @@ Use this image as a Dockerfile base (i.e.,```FROM stcox/nginx-cache-purge-http2`
 2. Enable HTTP/2 via OpenSSL ALPN.
 
 You can bake Nginx configuration files and SSL certificates directly into your image with COPY, or use docker-entrypoint.sh sed/awk commands to configure Nginx on container startup.
-
+---
 **Enable Cache Purging:**
 
-1. Configure a working cache (FastCGI, proxy, SCGI, or uWSGI) and 
+1. Configure a working cache (FastCGI, proxy, SCGI, or uWSGI).
+  e.g. - FastCGI
+  '''
+  
+  '''
+
 2. Specify a \***\_cache_purge** directive. 
 
-_See:_
+_See also:_
 - [Maximizing Python Performance with NGINX, Part 1: Web Serving and Caching](https://www.nginx.com/blog/maximizing-python-performance-with-nginx-parti-web-serving-and-caching/)
 - [Content Caching with Nginx Plus](https://www.nginx.com/products/content-caching-nginx-plus/)
 
-
+---
 **Enable HTTP/2:**
 
 1. Configure a server block specifying ```listen 443 http2``` directive.
 
-_See:_
+_See also:_
 - https://www.nginx.com/blog/nginx-1-9-5/
 - https://nginx.org/en/docs/http/ngx_http_v2_module.html
 - https://www.openssl.org/news/openssl-1.0.2-notes.html
 - https://en.wikipedia.org/wiki/Application-Layer_Protocol_Negotiation
 
 
-
+---
 **Dockerfile Example:**
 ```
 # Dockerfile Example

@@ -1,6 +1,6 @@
 # nginx-cache-purge-http2
 
-This is a Docker Nginx (v1.11.9) image built with [FRiCKLE's ngx_cache_purge module](https://github.com/FRiCKLE/ngx_cache_purge), the [Nginx's http_v2_module](https://nginx.org/en/docs/http/ngx_http_v2_module.html) and [OpenSSL v1.0.2k library](https://www.openssl.org/) (providing HTTP/2 support via ALPN).
+This is a Docker Nginx (v1.11.9) image built with [FRiCKLE's ngx_cache_purge module](https://github.com/FRiCKLE/ngx_cache_purge), the [Nginx's http_v2_module](https://nginx.org/en/docs/http/ngx_http_v2_module.html) and [OpenSSL v1.0.2k library](https://www.openssl.org/) (providing HTTP/2 support via ALPN). It's purpose is to provide a base Nginx image that supports both Cache Purging and HTTP/2 connections.
 
 It's a merger of [procraft's nginx-purge-docker](https://github.com/procraft/nginx-purge-docker) and [Ehekatl's docker-nginx-http2](https://github.com/Ehekatl/docker-nginx-http2), which are built with the ngx_cache_purge module v2.4 and openssl v1.0.2 , respectively.
 

@@ -13,19 +13,18 @@ You can bake Nginx conf files and SSL certificates into your image with COPY, or
 
 **Enable Cache Purging:** Configure proxy, FastCGI, SCGI, or uWSGI caching and specify a *_cache_purge _* directive. 
 
-_See:_ 
-[Maximizing Python Performance with NGINX, Part 1: Web Serving and Caching](https://www.nginx.com/blog/maximizing-python-performance-with-nginx-parti-web-serving-and-caching/)
-[Content Caching with Nginx Plus](https://www.nginx.com/products/content-caching-nginx-plus/)
-[](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_cache_purge)
+_See:_
+- [Maximizing Python Performance with NGINX, Part 1: Web Serving and Caching](https://www.nginx.com/blog/maximizing-python-performance-with-nginx-parti-web-serving-and-caching/)
+- [Content Caching with Nginx Plus](https://www.nginx.com/products/content-caching-nginx-plus/)
 
 
 **Enable HTTP/2:** provide an nginx conf specifying a ```listen 443 http2 default_server``` directive.
 
 _See:_
-https://www.nginx.com/blog/nginx-1-9-5/
-https://www.openssl.org/news/openssl-1.0.2-notes.html
-https://en.wikipedia.org/wiki/Application-Layer_Protocol_Negotiation
-
+- https://www.nginx.com/blog/nginx-1-9-5/
+- https://nginx.org/en/docs/http/ngx_http_v2_module.html
+- https://www.openssl.org/news/openssl-1.0.2-notes.html
+- https://en.wikipedia.org/wiki/Application-Layer_Protocol_Negotiation
 
 ```
 # Dockerfile Example

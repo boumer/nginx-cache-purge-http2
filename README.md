@@ -43,13 +43,17 @@ CMD ["nginx", "-g", "daemon off;"]
   - e.g. - WordPress Multisite FastCGI Cache ```/etc/nginx/conf.d/default.conf```
   ```
 # wordpress multisite that handles cache purging and http/https (w http2)
+###################################
+## CACHE CFG      #################
+###################################
 
 fastcgi_cache_path /var/run/nginx-cache levels=1:2 keys_zone=WORDPRESS:100m inactive=60m;
 fastcgi_cache_key "$scheme$request_method$http_host$request_uri";
 fastcgi_cache_use_stale error timeout invalid_header http_500;
 fastcgi_ignore_headers Cache-Control Expires Set-Cookie;
-
 add_header X-Cache $upstream_cache_status;
+
+###################################
 
 upstream php {  
     server wordpress:9000;
@@ -90,6 +94,12 @@ server {
 2. Specify a \***\_cache_purge** directive.
   - e.g. - WordPress Multisite FastCGI Cache Purge ```/etc/nginx/global/server.conf```
   ```
+######################
+#############
+###################################
+
+
+
 set $skip_cache 0;
 
 # POST requests and urls with a query string should always go to PHP

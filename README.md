@@ -149,6 +149,7 @@ _See also:_
 **Enable HTTP/2:**
 
 1. Configure a server block specifying ```listen 443 http2``` directive.
+  - As shown above in Step 1, 2nd server block, ```listen 443 http2 default_server``` directive.
 
 _See also:_
 - https://www.nginx.com/blog/nginx-1-9-5/

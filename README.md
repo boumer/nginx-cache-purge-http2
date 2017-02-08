@@ -20,7 +20,7 @@ Bake Nginx configuration files and SSL certificates directly into your image, st
 **Enable Cache Purging:**
 
 1. Configure a working cache (FastCGI, proxy, SCGI, or uWSGI).
-  - e.g. - FastCGI
+  - e.g. - WordPress FastCGI Cache ```/etc/nginx/conf.d/default.conf```
   ```
 # wordpress multisite
 
@@ -40,8 +40,8 @@ server {
   server_name  example.com *.example.com;
   server_name_in_redirect off;
 
-  access_log   /var/log/nginx/sp80.access.log;
-  error_log    /var/log/nginx/sp80.error.log;
+  access_log   /var/log/nginx/example.com.80.access.log;
+  error_log    /var/log/nginx/example.com.80.error.log;
 
   root /var/www/html;
   client_max_body_size 128m;
@@ -56,8 +56,8 @@ server {
   server_name example.com *.example.com;
   server_name_in_redirect off;
 
-  access_log   /var/log/nginx/sp443.access.log;
-  error_log    /var/log/nginx/sp443.error.log;
+  access_log   /var/log/nginx/example.com.443.access.log;
+  error_log    /var/log/nginx/example.com.443.error.log;
 
   root /var/www/html;
   client_max_body_size 128m;

@@ -21,7 +21,7 @@ Bake Nginx configuration files and SSL certificates directly into your image, st
 
 1. Configure a working cache (FastCGI, proxy, SCGI, or uWSGI).
   - e.g. - WordPress FastCGI Cache ```/etc/nginx/conf.d/default.conf```
-  ```
+  ```conf
 # wordpress multisite
 
 fastcgi_cache_path /var/run/nginx-cache levels=1:2 keys_zone=WORDPRESS:100m inactive=60m;

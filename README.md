@@ -13,16 +13,36 @@ Use this image as a Dockerfile base (i.e.,```FROM stcox/nginx-cache-purge-http2`
 1. Purge content from FastCGI, proxy, SCGI and uWSGI caches, and/or
 2. Enable HTTP/2 via OpenSSL ALPN.
 
-Bake Nginx configuration files and SSL certificates directly into your image, statically with COPY, or use ```docker-entrypoint.sh``` sed/awk commands to configure Nginx dynamically on container startup.
+---
+
+Bake your Nginx configuration files and SSL certificates directly into your image statically, with COPY, or use ```docker-entrypoint.sh``` sed/awk commands to configure Nginx dynamically on container startup.
+
+**Dockerfile Example:**
+```
+# Dockerfile Example
+
+FROM stcox/nginx-cache-purge-http2 # base image
+
+#conf
+COPY default.conf         /etc/nginx/conf.d/default.conf
+COPY docker-entrypoint.sh /entrypoint.sh
+
+#ssl
+COPY example.com.crt /etc/nginx/ssl/example.com.crt
+COPY example.com.key /etc/nginx/ssl/example.com.key
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["nginx", "-g", "daemon off;"]
+```
 
 ---
 
 **Enable Cache Purging:**
 
-1. Configure a working cache (FastCGI, proxy, SCGI, or uWSGI).
+1. Configure caching (FastCGI, proxy, SCGI, or uWSGI).
   - e.g. - WordPress Multisite FastCGI Cache ```/etc/nginx/conf.d/default.conf```
   ```
-# wordpress multisite
+# wordpress multisite that handles cache purging and http/https (w http2)
 
 fastcgi_cache_path /var/run/nginx-cache levels=1:2 keys_zone=WORDPRESS:100m inactive=60m;
 fastcgi_cache_key "$scheme$request_method$http_host$request_uri";
@@ -47,8 +67,7 @@ server {
     client_max_body_size 128m;
     index index.php;
 
-    include /etc/nginx/global/cache.conf;
-    include /etc/nginx/global/locations.conf;
+    include /etc/nginx/global/server.conf;
 }
 
 server {
@@ -64,12 +83,43 @@ server {
     index index.php;
 
     include /etc/nginx/global/ssl.conf;
-    include /etc/nginx/global/cache.conf;
-    include /etc/nginx/global/locations.conf;
+    include /etc/nginx/global/server.conf;
 }
   ```
 
-2. Specify a \***\_cache_purge** directive. 
+2. Specify a \***\_cache_purge** directive.
+  - e.g. - WordPress Multisite FastCGI Cache Purge ```/etc/nginx/conf.d/server.conf```
+```
+location / {
+    try_files $uri $uri/ /index.php?$args;
+} 
+
+location ~ \.php$ {
+    try_files $uri =404; 
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_param PHP_VALUE "upload_max_filesize = 128m";
+    fastcgi_param PHP_VALUE "post_max_size = 128m";
+    fastcgi_pass wordpress:9000;
+    fastcgi_cache_bypass $skip_cache;
+    fastcgi_no_cache $skip_cache;
+    fastcgi_cache WORDPRESS;
+    fastcgi_cache_valid  60m;
+}
+
+location ~ /purge(/.*) {
+    fastcgi_cache_purge WORDPRESS "$scheme$request_method$host$1";
+}
+
+location ~* ^.+\.(ogg|ogv|svg|svgz|eot|otf|woff|mp4|ttf|rss|atom|jpg|jpeg|gif|png|ico|zip|tgz|gz|rar|bz2|doc|xls|exe|ppt|tar|mid|midi|wav|bmp|rtf)$ {
+    access_log off;	log_not_found off; expires max;
+}
+
+location = /favicon.ico { log_not_found off; access_log off; }
+location = /robots.txt { access_log off; log_not_found off; }
+location ~ /\. { deny  all; access_log off; log_not_found off; }
+location ~* /(?:uploads|files)/.*\.php$ { deny all; access_log off; log_not_found off; }
+```
 
 _See also:_
 - [Maximizing Python Performance with NGINX, Part 1: Web Serving and Caching](https://www.nginx.com/blog/maximizing-python-performance-with-nginx-parti-web-serving-and-caching/)
@@ -88,20 +138,3 @@ _See also:_
 
 
 ---
-**Dockerfile Example:**
-```
-# Dockerfile Example
-
-FROM stcox/nginx-cache-purge-http2 # base image
-
-#conf
-COPY default.conf         /etc/nginx/conf.d/default.conf
-COPY docker-entrypoint.sh /entrypoint.sh
-
-#ssl
-COPY example.com.crt /etc/nginx/ssl/example.com.crt
-COPY example.com.key /etc/nginx/ssl/example.com.key
-
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["nginx", "-g", "daemon off;"]
-```

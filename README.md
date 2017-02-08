@@ -88,11 +88,31 @@ server {
   ```
 
 2. Specify a \***\_cache_purge** directive.
-  - e.g. - WordPress Multisite FastCGI Cache Purge ```/etc/nginx/conf.d/server.conf```
+  - e.g. - WordPress Multisite FastCGI Cache Purge ```/etc/nginx/global/server.conf```
 ```
+set $skip_cache 0;
+
+# POST requests and urls with a query string should always go to PHP
+if ($request_method = POST) {
+    set $skip_cache 1;
+}   
+if ($query_string != "") {
+    set $skip_cache 1;
+}   
+
+# Do not cache uris containing the following segments
+if ($request_uri ~* "/wp-admin/|/xmlrpc.php|wp-.*.php|/feed/|index.php|sitemap(_index)?.xml") {
+    set $skip_cache 1;
+}   
+
+# Do not use the cache for logged in users or recent commenters
+if ($http_cookie ~* "comment_author|wordpress_[a-f0-9]+|wp-postpass|wordpress_no_cache|wordpress_logged_in") {
+    set $skip_cache 1;
+}
+
 location / {
     try_files $uri $uri/ /index.php?$args;
-} 
+}
 
 location ~ \.php$ {
     try_files $uri =404; 

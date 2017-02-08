@@ -128,7 +128,7 @@ location ~ \.php$ {
 }
 
 location ~ /purge(/.*) {
-    fastcgi_cache_purge WORDPRESS "$scheme$request_method$host$1";
+    fastcgi_cache_purge WORDPRESS "$scheme$request_method$http_host$1";
 }
 
 location ~* ^.+\.(ogg|ogv|svg|svgz|eot|otf|woff|mp4|ttf|rss|atom|jpg|jpeg|gif|png|ico|zip|tgz|gz|rar|bz2|doc|xls|exe|ppt|tar|mid|midi|wav|bmp|rtf)$ {

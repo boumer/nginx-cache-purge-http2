@@ -89,7 +89,7 @@ server {
 
 2. Specify a \***\_cache_purge** directive.
   - e.g. - WordPress Multisite FastCGI Cache Purge ```/etc/nginx/global/server.conf```
-    ```
+  ```
 set $skip_cache 0;
 
 # POST requests and urls with a query string should always go to PHP
@@ -139,7 +139,7 @@ location = /favicon.ico { log_not_found off; access_log off; }
 location = /robots.txt { access_log off; log_not_found off; }
 location ~ /\. { deny  all; access_log off; log_not_found off; }
 location ~* /(?:uploads|files)/.*\.php$ { deny all; access_log off; log_not_found off; }
-    ```
+  ```
 
 _See also:_
 - [Maximizing Python Performance with NGINX, Part 1: Web Serving and Caching](https://www.nginx.com/blog/maximizing-python-performance-with-nginx-parti-web-serving-and-caching/)

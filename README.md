@@ -16,7 +16,7 @@ You can bake Nginx configuration files and SSL certificates directly into your i
 **Enable Cache Purging:**
 
 1. Configure a working cache (FastCGI, proxy, SCGI, or uWSGI) and 
-2. Specify a \***cache_purge** directive. 
+2. Specify a \***\_cache_purge** directive. 
 
 _See:_
 - [Maximizing Python Performance with NGINX, Part 1: Web Serving and Caching](https://www.nginx.com/blog/maximizing-python-performance-with-nginx-parti-web-serving-and-caching/)

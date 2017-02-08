@@ -4,7 +4,7 @@ This is an Nginx (v1.11.9) image built with support for FastCGI ngx_cache_purge 
 
 It is a mashup based on [Ehekatl's docker-nginx-http2](https://github.com/Ehekatl/docker-nginx-http2) and [procraft's nginx-purge-docker](https://github.com/procraft/nginx-purge-docker), which are built with [openssl v1.0.2](https://www.openssl.org/) and [FRiCKLE's ngx_cache_purge v2.4](https://github.com/FRiCKLE/ngx_cache_purge) respectively.
 
-Use this image as a base (FROM stcox/nginx-cache-purge-http2) to build a final image configured to:
+Use this image as a base (```FROM stcox/nginx-cache-purge-http2```) to build a final image configured to:
 
 1. Purge content from FastCGI, proxy, SCGI and uWSGI caches, and/or
 2. Enable HTTP/2 via SSL.

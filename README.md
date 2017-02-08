@@ -32,7 +32,6 @@ fastcgi_ignore_headers Cache-Control Expires Set-Cookie;
 add_header X-Cache $upstream_cache_status;
 
 upstream php {  
-  
     server wordpress:9000;
 }
 

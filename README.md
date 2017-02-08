@@ -12,7 +12,9 @@ Use this image as a Dockerfile base (i.e.,```FROM stcox/nginx-cache-purge-http2`
 2. Enable HTTP/2 via OpenSSL ALPN.
 
 You can bake Nginx configuration files and SSL certificates directly into your image with COPY, or use docker-entrypoint.sh sed/awk commands to configure Nginx on container startup.
+
 ---
+
 **Enable Cache Purging:**
 
 1. Configure a working cache (FastCGI, proxy, SCGI, or uWSGI).
